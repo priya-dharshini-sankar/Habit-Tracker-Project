@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: 196253396965.dkr.ecr.ap-south-1.amazonaws.com/habit-tracker
-  tag: "f2bddfa"
+  tag: "03117ad"
   pullPolicy: IfNotPresent
 
 service:

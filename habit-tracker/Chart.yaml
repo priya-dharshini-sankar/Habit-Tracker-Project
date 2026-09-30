@@ -3,5 +3,5 @@ name: habit-tracker
 description: Helm chart for the Habit Tracker Spring Boot application
 type: application
 version: 1.0.0
-appVersion: "2d746d8"
+appVersion: "03117ad"
 
