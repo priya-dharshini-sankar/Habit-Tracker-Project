@@ -1,0 +1,46 @@
+replicaCount: 2
+
+image:
+  repository: 196253396965.dkr.ecr.ap-south-1.amazonaws.com/habit-tracker
+  tag: "f2bddfa"
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 8080
+  targetPort: 8080
+
+config:
+  springApplicationName: habit-tracker
+  serverPort: "8080"
+  problemDetailsEnabled: "true"
+
+secret:
+  enabled: false
+  name: habit-tracker-secret
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 8080
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
