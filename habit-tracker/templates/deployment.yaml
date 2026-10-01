@@ -6,8 +6,6 @@ metadata:
     {{- include "habit-tracker.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  serviceAccountName: {{ .Values.serviceAccount.name }}
-  automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -30,6 +28,9 @@ spec:
         {{- end }}
 
     spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
+
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

@@ -51,7 +51,6 @@ serviceAccount:
   automount: false
 
 podSecurityContext:
-  runAsNonRoot: true
   seccompProfile:
     type: RuntimeDefault
 
