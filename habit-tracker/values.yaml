@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: 196253396965.dkr.ecr.ap-south-1.amazonaws.com/habit-tracker
-  tag: "d7cc5bb"
+  tag: "6a0d9d5"
   pullPolicy: IfNotPresent
 
 service:
