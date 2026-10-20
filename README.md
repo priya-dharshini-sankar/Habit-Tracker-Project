@@ -1,299 +1,99 @@
-# 🚀 Java Application CI/CD
+<div align="center">
 
-A complete CI/CD and GitOps implementation for a Java Spring Boot application using Jenkins, Maven, SonarQube, Docker, Amazon ECR, Helm, Argo CD and Amazon EKS.
+# 🚀 Habit Tracker | Java CI/CD & GitOps on Amazon EKS
 
----
+### Jenkins · Maven · SonarQube · Helm · Argo CD
 
-## 📌 Project Overview
+**A hands-on DevOps project implementing automated CI and GitOps-based CD for a Java Spring Boot application on Amazon EKS, combining build automation, code-quality validation, containerization, Helm-based deployments, and Kubernetes release management.**
 
-This project demonstrates an automated CI/CD workflow where application code is built, tested, analyzed, containerized and deployed to Kubernetes.
+![AWS](https://img.shields.io/badge/AWS-EKS%20%7C%20ECR-10212B?style=for-the-badge&logo=amazonwebservices&logoColor=FF9900)
+![Jenkins](https://img.shields.io/badge/Jenkins-CI-10212B?style=for-the-badge&logo=jenkins&logoColor=D24939)
+![Helm](https://img.shields.io/badge/Helm-Kubernetes-10212B?style=for-the-badge&logo=helm&logoColor=0F1689)
+![Argo CD](https://img.shields.io/badge/Argo%20CD-GitOps-10212B?style=for-the-badge&logo=argo&logoColor=EF7B4D)
 
-The project separates:
-
-- **CI** – Jenkins
-- **CD** – Argo CD
-- **Source of Truth** – GitHub
-- **Container Registry** – Amazon ECR
-- **Kubernetes Platform** – Amazon EKS
+</div>
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ CI/CD & GitOps Architecture
 
 ```text
-                    GitHub
-                       |
-                       v
-                    Jenkins
-                       |
-          +------------+-------------+
-          |            |             |
-        Maven        Tests       SonarQube
-          |            |             |
-          +------------+-------------+
-                       |
-                       v
-                 Docker Build
-                       |
-                       v
-                  Amazon ECR
-                       |
-                       v
-              Update Helm Values
-                       |
-                       v
-                    GitHub
-                       |
-                       v
-                   Argo CD
-                       |
-                       v
-                  Amazon EKS
-                       |
-                       v
-              Kubernetes Pods
-                       |
-                       v
-             Habit Tracker App
-````
-
----
-
-## 🔄 CI/CD Workflow
-
-```text
-GitHub
-  ↓
-Jenkins
-  ↓
-Maven Build
-  ↓
-Unit Test
-  ↓
-SonarQube Analysis
-  ↓
-Quality Gate
-  ↓
-Docker Build
-  ↓
+GitHub Push
+     ↓
+Jenkins CI Pipeline
+     ↓
+Maven Build & Unit Tests
+     ↓
+SonarQube → Quality Gate
+     ↓
+Docker Build → Git SHA Image Tag
+     ↓
 Amazon ECR
-  ↓
+     ↓
 Update Helm values.yaml
-  ↓
-Git Commit & Push
-  ↓
-Argo CD
-  ↓
+     ↓
+Commit & Push to GitHub
+     ↓
+Argo CD → Automatic Sync
+     ↓
 Amazon EKS
-  ↓
-Kubernetes
+     ↓
+Kubernetes Deployment & Validation
 ```
 
-Jenkins performs the **Continuous Integration** process, while Argo CD performs **Continuous Deployment using GitOps**.
+**CI:** Jenkins builds, tests, analyzes, and publishes the application.
+
+**CD:** Argo CD synchronizes Git-managed Helm configuration to Amazon EKS.
+
+## 🧩 Application Overview
+
+| Component | Technology | Purpose |
+|---|---|---|
+| **Application** | Java 21 + Spring Boot | Habit-tracking web application |
+| **Build & Testing** | Apache Maven | Dependency management, compilation, unit tests, and JAR packaging |
+| **Data Storage** | In-memory | Stores application data without an external database |
+| **Runtime** | Docker | Runs the application on port `8080` |
+
+## ⚙️ Engineering Highlights
+
+- **CI Automation:** Built a Jenkins Declarative Pipeline for Maven builds, unit testing, SonarQube analysis, Quality Gate validation, and Docker image publishing.
+- **Containerization:** Implemented a multi-stage Docker build using Java 21, a lightweight JRE runtime stage, and non-root container execution.
+- **Image Traceability:** Published Docker images to Amazon ECR using Git commit SHA tags to link application versions with source-code revisions.
+- **Helm Deployment:** Created a reusable Helm chart with configurable replicas, Services, ConfigMaps, resource limits, and health probes.
+- **GitOps Automation:** Configured Jenkins to update Helm image tags in GitHub, allowing Argo CD to automatically synchronize changes to Amazon EKS.
+- **Kubernetes Reliability:** Deployed two application replicas with readiness/liveness probes, resource management, and rolling-update configuration.
+- **Security Controls:** Used Jenkins Credentials, Kubernetes Secrets, non-root containers, and restricted ServiceAccount access.
+- **Deployment & Recovery:** Validated rolling deployments, restored a previous application version, and confirmed Argo CD returned to a healthy, synchronized state.
+- **Monitoring & Troubleshooting:** Verified application health, resource usage, pod status, and logs using Kubernetes commands and Argo CD.
+
+## 📊 Documented Results
+
+| Validation | Outcome |
+|---|---|
+| Maven Build & Unit Tests | Successful — 1 Test Passed |
+| SonarQube Quality Gate | Passed |
+| Docker Image Build | Successful |
+| Amazon ECR Image Publishing | Verified |
+| Helm Chart Validation | Passed |
+| Kubernetes Deployment | 2/2 Replicas Available |
+| Argo CD Synchronization | Synced & Healthy |
+| Automated GitOps Deployment | Successful |
+| Rolling Update | Successful |
+| Application Rollback | Successfully Restored |
+| Application Monitoring | Verified |
+
+*Results reflect the completed project implementation, not a currently active deployment.*
+
+## 📚 Project Documentation
+
+### 📄 [Explore the Complete Project Documentation →](./Project%20Documentation.pdf)
+
+*Java & Spring Boot · Jenkins · Maven · SonarQube · Docker · Amazon ECR · Helm · Argo CD · Amazon EKS · GitOps · Rollback*
 
 ---
 
-## 🛠️ Technologies Used
+<div align="center">
 
-| Technology            | Purpose                           |
-| --------------------- | --------------------------------- |
-| Java 21 / Spring Boot | Application                       |
-| Maven                 | Build & Testing                   |
-| GitHub                | Source & Deployment Configuration |
-| Jenkins               | CI Pipeline                       |
-| SonarQube             | Code Quality                      |
-| Docker                | Containerization                  |
-| Amazon ECR            | Container Registry                |
-| Helm                  | Kubernetes Packaging              |
-| Argo CD               | GitOps Deployment                 |
-| Amazon EKS            | Kubernetes Platform               |
+**Build → Test → Analyze → Publish → Commit → Sync → Deploy**
 
----
-
-## 📂 Project Structure
-
-```text
-Habit-Tracker-Project/
-│
-├── src/
-├── pom.xml
-├── Dockerfile
-├── .dockerignore
-├── Jenkinsfile
-├── sonar-project.properties
-│
-├── habit-tracker/
-│   ├── Chart.yaml
-│   ├── values.yaml
-│   └── templates/
-│       ├── deployment.yaml
-│       ├── service.yaml
-│       ├── configmap.yaml
-│       └── secret.yaml
-│
-└── README.md
-```
-
----
-
-## 🔧 Jenkins CI Pipeline
-
-The Jenkins Declarative Pipeline automates:
-
-* Source code checkout
-* Maven build
-* Unit testing
-* SonarQube analysis
-* Quality Gate validation
-* Docker image build
-* Image versioning using Git commit SHA
-* Push image to Amazon ECR
-* Update Helm image tag
-* Commit and push deployment configuration
-
-
-The image version is linked to the Git commit to provide traceability between source code, container image and Kubernetes deployment.
-
----
-
-## 🐳 Docker
-
-The application uses a multi-stage Docker build.
-
-The production image:
-
-* Uses Java 21 runtime
-* Runs on port `8080`
-* Uses a non-root `appuser`
-* Keeps build dependencies out of the runtime image
-* Does not contain application credentials
-
-The generated image is pushed to Amazon ECR using a meaningful version.
-
----
-
-## ☸️ Kubernetes & Helm
-
-The application is deployed to Amazon EKS using Helm.
-
-The Helm chart manages:
-
-* Deployment
-* Service
-* ConfigMap
-* Secret configuration
-* Replica count
-* Resource requests and limits
-* Liveness and readiness probes
-* Rolling update strategy
-* Application image version
-
-The application runs with multiple replicas for availability.
-
----
-
-## 🔄 Argo CD GitOps
-
-Argo CD monitors the deployment configuration stored in GitHub.
-
-When Jenkins updates the image version in `values.yaml`:
-
-```text
-Jenkins
-   ↓
-GitHub
-   ↓
-Argo CD detects change
-   ↓
-Automatic Sync
-   ↓
-Amazon EKS
-```
-
-Argo CD is configured with:
-
-* Auto Sync
-* Prune Resources
-* Self Heal
-
-GitHub acts as the source of truth for the Kubernetes deployment configuration.
-
----
-
-## 🔄 Deployment & Rollback
-
-Kubernetes rolling updates are used to deploy new application versions.
-
-Deployment status can be verified using : 
-
-``` kubectl rollout status deployment/habit-tracker ```
-
-Deployment history can be viewed using : 
-
-``` kubectl rollout history deployment/habit-tracker ```
-
-A previous version can be restored using : 
-
-``` kubectl rollout undo deployment/habit-tracker ```
-
----
-
-## 📊 Monitoring & Troubleshooting
-
-Kubernetes and Argo CD are used to monitor application health and troubleshoot deployment issues.
-
-Common commands include:
-
-``` 
-kubectl get pods
-kubectl get deployment
-kubectl get service
-kubectl logs <pod-name>
-kubectl describe pod <pod-name>
-kubectl get pods -o wide
-kubectl top pods
-```
-
-
-These checks help identify pod failures, restarts, resource usage, application errors and deployment issues.
-
----
-
-## 🔐 Security
-
-The project follows basic CI/CD security practices:
-
-* Jenkins Credentials are used for sensitive credentials
-* AWS IAM role is used for Jenkins AWS access
-* No passwords or tokens are hardcoded
-* No sensitive values are committed to GitHub
-* Docker container runs as a non-root user
-* Kubernetes Secret configuration is used where required
-* Jenkins does not directly deploy the application using kubectl
-* Kubernetes deployment is managed through GitOps
-
----
-
-## 📌 Key Features
-
-* Automated Java application build
-* Automated unit testing
-* SonarQube Quality Gate
-* Production Docker image
-* Versioned Amazon ECR images
-* Reusable Helm deployment
-* Kubernetes rolling updates
-* Health probes and resource limits
-* GitOps deployment with Argo CD
-* Automated synchronization to Amazon EKS
-* CI/CD separation between Jenkins and Argo CD
-
----
-
-## 🎯 Final Outcome
-
-The project implements a complete automated delivery pipeline:
-
-**Build → Test → Analyze → Containerize → Push → Update Git → Sync → Deploy**
-
-Jenkins manages the **CI workflow**, while Argo CD manages **GitOps-based CD**, with GitHub acting as the source of truth for the Kubernetes deployment configuration.
+</div>
